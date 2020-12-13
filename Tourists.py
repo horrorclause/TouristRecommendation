@@ -52,5 +52,26 @@ addAttraction("São Paulo, Brazil", ["Pátio do Colégio", ["historical site"]])
 addAttraction("Cairo, Egypt", ["Pyramids of Giza", ["monument", "historical site"]])
 addAttraction("Cairo, Egypt", ["Egyptian Museum", ["museum"]])
 
-for i in attractions:
-  print(i)
+#for i in attractions:
+  #print(i)
+
+
+def findAttractions(dest, interests):
+    destIndex = getDestIndex(dest)
+    attractionsInCity = attractions[destIndex]
+    attractWithInterest = []
+
+    for i in attractionsInCity:
+        possibleAttraction = i
+        attractionTags = i[1]
+
+        for x in interests:
+            if x in attractionTags:
+                attractWithInterest.append(possibleAttraction)
+
+    return attractWithInterest
+
+
+laArts = findAttractions("Los Angeles, USA", ['art'])  # Test the findAttractions function
+
+#print(la_arts)
