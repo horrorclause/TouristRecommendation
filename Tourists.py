@@ -9,32 +9,35 @@ destinations = [
                "Cairo, Egypt"
               ]
 
-testTraveler = ['Erin Wilkes', 'Shanghai, China',['historical site',  'art']]  # Test input for a traveler
-
-# Gets the index of the destination from the destinations list
+'''GRABS INDEX OF DESTINATION FROM DESTINATIONS LIST'''
 def getDestIndex(dest):
   destinationIndex = destinations.index(dest)
+
   return destinationIndex
 
 
-# Pulls the destination from the traveler info and gives us index
-# for the destinations list
+'''PULLS THE DESTINATION FROM THE TRAVELER INFO AND GIVES INDEX
+   FOR THE DESTINATION LIST'''
 def getTravelerLoc(traveler):
   travelerDest = traveler[1]
   travelerDestinationIndex = getDestIndex(travelerDest)
+
   return travelerDestinationIndex
 
 
-testDestIndex = getTravelerLoc(testTraveler)
+#testDestIndex = getTravelerLoc(testTraveler)
+
 attractions = [[] for x in range(len(destinations))]
 
-
+'''ADDS ATTRACTIONS TO THE ATTRACTIONS LIST'''
 def addAttraction(dest, att):
   try:
     destIndex = getDestIndex(dest)  # Gets dest index from destinations
     attractionsForDest = attractions[destIndex]  # Gets list from attractions that corresponds with destination index
     attractionsForDest.append(att)  # Appends attraction to the attractions list
+
     return attractionsForDest
+
   except ValueError:
     print('There was an error')
     return
@@ -52,10 +55,7 @@ addAttraction("São Paulo, Brazil", ["Pátio do Colégio", ["historical site"]])
 addAttraction("Cairo, Egypt", ["Pyramids of Giza", ["monument", "historical site"]])
 addAttraction("Cairo, Egypt", ["Egyptian Museum", ["museum"]])
 
-#for i in attractions:
-  #print(i)
-
-
+'''BASED ON TRAVELERS DESTINATION AND INTERESTS, RETURNS ATTRACTIONS THAT CORRESPOND WITH TRAVELERS INTERESTS'''
 def findAttractions(dest, interests):
     destIndex = getDestIndex(dest)
     attractionsInCity = attractions[destIndex]
@@ -67,11 +67,42 @@ def findAttractions(dest, interests):
 
         for x in interests:
             if x in attractionTags:
-                attractWithInterest.append(possibleAttraction)
+                attractWithInterest.append(possibleAttraction[0])  # Append
 
     return attractWithInterest
 
+# la = findAttractions("Los Angeles, USA",["museum","beach"]) # Test findAttractions
 
-laArts = findAttractions("Los Angeles, USA", ['art'])  # Test the findAttractions function
 
-#print(la_arts)
+
+'''SEPARATES OUT THE TRAVELERS INFORMATION'''
+def attractionsForTraveler(traveler):
+    travelerDest = traveler[1]
+    travelerInterests = traveler[2]
+    travelerAttracts = findAttractions(travelerDest, travelerInterests)
+    interestString = "Hi " + traveler[0] + ", we think you'll like these places around " + travelerDest + ": "
+    secondString = "\n"
+    count = len(travelerAttracts)
+
+    '''ADDS LOGIC FOR CONSTRUCTING STRING TO DISPLAY RECOMMENDATIONS'''
+    for i in travelerAttracts:
+        if count > 1:
+            secondString += i + ", "
+            count -= 1
+        else:
+            secondString += i + ".\n"
+
+    return interestString + secondString
+
+# Test attractionsForTraveler below
+smillsFrance = attractionsForTraveler(['Dereck Smills', 'Paris, France', ['art', 'monument']])
+testTraveler = attractionsForTraveler(['Erin Wilkes', 'Shanghai, China',['historical site',  'art']])
+print(testTraveler, smillsFrance)
+
+
+
+
+
+
+
+
