@@ -16,8 +16,7 @@ def getDestIndex(dest):
   return destinationIndex
 
 
-'''PULLS THE DESTINATION FROM THE TRAVELER INFO AND GIVES INDEX
-   FOR THE DESTINATION LIST'''
+'''PULLS THE DESTINATION FROM THE TRAVELER INFO AND GIVES INDEX FOR THE DESTINATION LIST'''
 def getTravelerLoc(traveler):
   travelerDest = traveler[1]
   travelerDestinationIndex = getDestIndex(travelerDest)
